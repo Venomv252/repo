@@ -13,7 +13,7 @@ export default function App() {
   const handleSearch = async (selectedSkills) => {
     setIsLoading(true);
     setError(null);
-     try {
+    try {
       const query = selectedSkills.map(skill => `topic:${skill}`).join(' ');
       const response = await axios.get('https://api.github.com/search/repositories', {
         params: {
@@ -28,7 +28,6 @@ export default function App() {
             : undefined,
           Accept: 'application/vnd.github.v3+json'
         }
-   
       });
       setRepositories(response.data.items);
     } catch (err) {
