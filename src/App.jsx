@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Typography, CssBaseline, Alert } from '@mui/material';
+import { Container, Typography, CssBaseline, Alert, Button } from '@mui/material';
 import SkillSelector from './SkillSelector';
 import RepositoryList from './RepositoryList';
 import axios from 'axios';
@@ -9,6 +9,7 @@ export default function App() {
   const [repositories, setRepositories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [needsAuth, setNeedsAuth] = useState(false);
 
   const handleSearch = async (selectedSkills) => {
     setIsLoading(true);
@@ -22,16 +23,18 @@ export default function App() {
           order: 'desc',
           per_page: 10
         },
-        headers: {
-          Authorization: import.meta.env.VITE_GITHUB_TOKEN 
-            ? `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
-            : undefined,
-          Accept: 'application/vnd.github.v3+json'
-        }
+        // No authorization header - using public API access
       });
+      
+      // Check if we hit rate limit
+      if (response.data.items.length === 0) {
+        setNeedsAuth(true);
+        throw new Error('For more results, please authenticate');
+      }
+      
       setRepositories(response.data.items);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to fetch repositories');
+      setError(err.message || 'Failed to fetch repositories');
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +47,28 @@ export default function App() {
         <Typography variant="h3" component="h1" align="center" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
           GitHub Repository Recommender
         </Typography>
-        {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
+        
+        {error && (
+          <Alert 
+            severity={needsAuth ? 'warning' : 'error'} 
+            sx={{ mb: 3 }}
+            action={
+              needsAuth ? (
+                <Button 
+                  color="inherit" 
+                  size="small"
+                  href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api#authentication"
+                  target="_blank"
+                >
+                  Learn Auth
+                </Button>
+              ) : null
+            }
+          >
+            {error}
+          </Alert>
+        )}
+        
         <SkillSelector onSearch={handleSearch} isLoading={isLoading} />
         <RepositoryList repositories={repositories} isLoading={isLoading} />
       </Container>
