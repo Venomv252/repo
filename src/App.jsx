@@ -13,6 +13,21 @@ export default function App() {
   const handleSearch = async (selectedSkills) => {
     setIsLoading(true);
     setError(null);
+     try {
+      const query = selectedSkills.map(skill => `topic:${skill}`).join(' ');
+      const response = await axios.get('https://api.github.com/search/repositories', {
+        params: {
+          q: query,
+          sort: 'stars',
+          order: 'desc',
+          per_page: 10
+        },
+        headers: {
+          Authorization: import.meta.env.VITE_GITHUB_TOKEN 
+            ? `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+            : undefined,
+          Accept: 'application/vnd.github.v3+json'
+        }
    
       });
       setRepositories(response.data.items);
