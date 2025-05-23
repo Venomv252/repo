@@ -4,7 +4,7 @@ import SkillSelector from './SkillSelector';
 import RepositoryList from './RepositoryList';
 import axios from 'axios';
 import './index.css';
-import Nav from './Nav';
+import Navbar from "./nav.jsx"
 
 export default function App() {
   const [repositories, setRepositories] = useState([]);
@@ -43,7 +43,7 @@ export default function App() {
 
   return (
     <>
-    <Nav />
+    <Navbar />
       <CssBaseline />
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Typography variant="h3" component="h1" align="center" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
