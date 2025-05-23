@@ -12,7 +12,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         <a href="#" className="nav-link">Leaderboard</a>
-        <a href="https://repo-2-5916.vercel.app/auth"><button className="login-button">Login/Signup</button></a>
+        <a href="https://repo-2-5916.vercel.app/"><button className="login-button">Login/Signup</button></a>
       </div>
     </nav>
   );
