@@ -11,6 +11,7 @@ import RepositoryList from "./RepositoryList";
 import axios from "axios";
 import "./index.css";
 import Navbar from "./Nav";
+import Footer from "./Footer"
 
 export default function App() {
   const [repositories, setRepositories] = useState([]);
@@ -88,6 +89,7 @@ export default function App() {
         <SkillSelector onSearch={handleSearch} isLoading={isLoading} />
         <RepositoryList repositories={repositories} isLoading={isLoading} />
       </Container>
+      <Footer />
     </>
   );
 }
