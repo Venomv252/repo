@@ -24,16 +24,16 @@
   }
   
   .logo .blue {
-    color: #2563eb; /* Tailwind's blue-600 */
+    color: #2563eb; 
   }
   
   .logo .green {
-    color: #22c55e; /* Tailwind's green-500 */
+    color: #22c55e; 
   }
   
   .tagline {
     font-size: 14px;
-    color: #6b7280; /* Tailwind's gray-500 */
+    color: #6b7280; 
     margin-top: -4px;
   }
   

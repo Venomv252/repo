@@ -1,16 +1,15 @@
-/* Add any custom styles here */
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* Add smooth transitions for hover effects */
+
 .MuiCard-root {
   transition: box-shadow 0.3s ease-in-out;
 }
 
-/* Style for the main heading */
 h1 {
   margin-bottom: 2rem;
   color: #1976d2;
