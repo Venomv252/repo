@@ -35,7 +35,7 @@ export default function App() {
         }
       );
 
-      // Check if we hit rate limit
+    
       if (response.data.items.length === 0) {
         setNeedsAuth(true);
         throw new Error("For more results, please authenticate");
